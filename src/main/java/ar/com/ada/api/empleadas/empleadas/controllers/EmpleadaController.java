@@ -13,7 +13,7 @@ import ar.com.ada.api.empleadas.empleadas.services.EmpleadaService;
 @Controller
 public class EmpleadaController {
 
-    @Autowired
+    /*@Autowired
     private EmpleadaService service;
 
     @PostMapping("/empleados")
@@ -31,6 +31,6 @@ public class EmpleadaController {
     
 
         
-    }
+    }*/
     
 }

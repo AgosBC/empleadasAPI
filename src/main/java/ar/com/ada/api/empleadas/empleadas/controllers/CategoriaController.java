@@ -1,6 +1,7 @@
 package ar.com.ada.api.empleadas.empleadas.controllers;
 
 import java.security.Provider.Service;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import ar.com.ada.api.empleadas.empleadas.services.CategoriaService;
 public class CategoriaController {
     
     @Autowired //anotacion
-    private CategoriaService service;
+    public CategoriaService service;
 
     @PostMapping("/categorias") //mapping url 
     public ResponseEntity<?> crearCategoria(@RequestBody Categoria categoria){ //no es un void una api siempre devuelve algo al 

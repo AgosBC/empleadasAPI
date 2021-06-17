@@ -31,7 +31,7 @@ public class CategoriaService {
 
 
     public List<Categoria> traerCategorias(){
-        return categoriaRepo.findAllOrderByName();
+        return categoriaRepo.findAll();
     }
 
 
