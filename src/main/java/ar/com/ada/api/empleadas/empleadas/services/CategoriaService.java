@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.empleadas.empleadas.entities.*;
-import ar.com.ada.api.repos.*;
+import ar.com.ada.api.empleadas.empleadas.repos.*;
 
 
 @Service
