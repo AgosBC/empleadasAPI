@@ -5,16 +5,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 import ar.com.ada.api.empleadas.empleadas.entities.Empleada;
 import ar.com.ada.api.empleadas.empleadas.models.responce.GenericResponce;
 import ar.com.ada.api.empleadas.empleadas.services.EmpleadaService;
 
-@Controller
+@RestController
 public class EmpleadaController {
 
-    /*@Autowired
-    private EmpleadaService service;
+    @Autowired
+    public EmpleadaService service;
 
     @PostMapping("/empleados")
     public ResponseEntity<?> crearEmpleada(@RequestBody Empleada empleada){
@@ -29,8 +31,11 @@ public class EmpleadaController {
 
         return ResponseEntity.ok(r);
     
+       
+    }
 
-        
-    }*/
+    public ResponseEntity<List<Empleada>> traerEmpleadas(){
+        return ResponseEntity.ok(service.traerEmpleadas());
+    }
     
 }
