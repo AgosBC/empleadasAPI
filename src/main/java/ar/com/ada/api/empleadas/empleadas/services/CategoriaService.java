@@ -13,7 +13,7 @@ import ar.com.ada.api.empleadas.empleadas.repos.*;
 public class CategoriaService {
 
     @Autowired
-    private CategoriaRepository categoriaRepo;
+    public CategoriaRepository categoriaRepo;
 
     public void crearCategoria(Categoria categoria){ //void o boolenan
 

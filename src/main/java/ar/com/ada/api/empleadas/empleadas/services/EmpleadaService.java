@@ -12,7 +12,7 @@ import ar.com.ada.api.empleadas.empleadas.repos.EmpleadaRepository;
 public class EmpleadaService {
 
     @Autowired
-    private EmpleadaRepository empleadaRepo;
+    public EmpleadaRepository empleadaRepo;
 
     public void crearEmpleada(Empleada empleada){
 

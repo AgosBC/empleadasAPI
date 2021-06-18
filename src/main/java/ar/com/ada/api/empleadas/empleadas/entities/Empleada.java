@@ -27,7 +27,7 @@ public class Empleada {
     @Column(name = "estado_id")
     private int estado;
 
-    @Column(name = "fecha_alta)")
+    @Column(name = "fecha_alta")
     private Date fechaAlta;
 
     @Column(name = "fecha_baja")

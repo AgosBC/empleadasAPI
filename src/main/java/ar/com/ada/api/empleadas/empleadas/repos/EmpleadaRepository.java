@@ -7,6 +7,7 @@ import ar.com.ada.api.empleadas.empleadas.entities.Empleada;
 
 @Repository
 public interface EmpleadaRepository extends JpaRepository<Empleada, Integer> {
+
     
 }
 
