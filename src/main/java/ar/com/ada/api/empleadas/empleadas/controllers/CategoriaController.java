@@ -5,10 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 import ar.com.ada.api.empleadas.empleadas.entities.Categoria;
 import ar.com.ada.api.empleadas.empleadas.models.responce.GenericResponce;
@@ -18,7 +16,7 @@ import ar.com.ada.api.empleadas.empleadas.services.CategoriaService;
 public class CategoriaController {
     
     @Autowired //anotacion
-    public CategoriaService service;
+    private CategoriaService service;
 
     @PostMapping("/categorias") //mapping url 
     public ResponseEntity<?> crearCategoria(@RequestBody Categoria categoria){ //no es un void una api siempre devuelve algo al 

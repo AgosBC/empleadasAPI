@@ -2,7 +2,7 @@ package ar.com.ada.api.empleadas.empleadas.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import ar.com.ada.api.empleadas.empleadas.services.EmpleadaService;
 public class EmpleadaController {
 
     @Autowired
-    public EmpleadaService service;
+    private EmpleadaService service;
 
     @PostMapping("/empleados")
     public ResponseEntity<?> crearEmpleada(@RequestBody Empleada empleada){
