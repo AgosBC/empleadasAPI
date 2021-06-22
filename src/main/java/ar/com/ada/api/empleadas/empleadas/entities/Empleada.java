@@ -9,11 +9,18 @@ import javax.persistence.*;
 @Table(name = "empleada")
 public class Empleada {
 
+    public Empleada(String nombre, Integer edad, BigDecimal sueldo) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.sueldo = sueldo;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "empleada_id")
     private Integer empleadaId;
     
+   
     private String nombre;
 
     private Integer edad;
