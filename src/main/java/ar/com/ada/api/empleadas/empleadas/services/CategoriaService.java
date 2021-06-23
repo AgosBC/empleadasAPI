@@ -39,9 +39,9 @@ public class CategoriaService {
         Optional<Categoria> resultado = categoriaRepo.findById(categoriaId);
         Categoria categoria = null;
 
-        if (resultado.isPresent()){
+        if (resultado.isPresent())
             categoria = resultado.get();
-        }
+        
         return categoria;
     }
 
