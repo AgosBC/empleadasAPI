@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import ar.com.ada.api.empleadas.empleadas.entities.Categoria;
-import ar.com.ada.api.empleadas.empleadas.models.responce.GenericResponce;
+import ar.com.ada.api.empleadas.empleadas.models.responce.GenericResponse;
 import ar.com.ada.api.empleadas.empleadas.services.CategoriaService;
 
 @RestController //anotacion
@@ -21,7 +21,7 @@ public class CategoriaController {
     @PostMapping("/categorias") //mapping url 
     public ResponseEntity<?> crearCategoria(@RequestBody Categoria categoria){ //no es un void una api siempre devuelve algo al 
 
-        GenericResponce respuesta = new GenericResponce();
+        GenericResponse respuesta = new GenericResponse();
        
 
         service.crearCategoria(categoria);

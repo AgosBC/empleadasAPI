@@ -12,7 +12,7 @@ import ar.com.ada.api.empleadas.empleadas.entities.Categoria;
 import ar.com.ada.api.empleadas.empleadas.entities.Empleada;
 import ar.com.ada.api.empleadas.empleadas.entities.Empleada.EstadoEmpleadoEnum;
 import ar.com.ada.api.empleadas.empleadas.models.request.InfoEmpleadaNueva;
-import ar.com.ada.api.empleadas.empleadas.models.responce.GenericResponce;
+import ar.com.ada.api.empleadas.empleadas.models.responce.GenericResponse;
 import ar.com.ada.api.empleadas.empleadas.services.CategoriaService;
 import ar.com.ada.api.empleadas.empleadas.services.EmpleadaService;
 
@@ -25,7 +25,7 @@ public class EmpleadaController {
     @Autowired
     CategoriaService categoriaService;
 
-    @PostMapping("/empleados")
+    /*@PostMapping("/empleados")
     public ResponseEntity<?> crearEmpleada(@RequestBody InfoEmpleadaNueva empleadaInfo){
 
         GenericResponce r = new GenericResponce();
@@ -47,7 +47,7 @@ public class EmpleadaController {
         return ResponseEntity.ok(r);
     
        
-    }
+    }*/
     /*@GetMapping("/empleados")
     public ResponseEntity<List<Empleada>> traerEmpleadas(){
         return ResponseEntity.ok(service.traerEmpleadas());
@@ -58,6 +58,30 @@ public class EmpleadaController {
         List<Empleada> lista = service.traerEmpleadas();
 
         return ResponseEntity.ok(lista);
+    }
+
+
+    
+    @PostMapping("/empleados")
+    public ResponseEntity<?> crearEmpleada(@RequestBody InfoEmpleadaNueva empleadaInfo) {
+        GenericResponse respuesta = new GenericResponse();
+
+        Empleada empleada = new Empleada();
+        empleada.setNombre(empleadaInfo.nombre);
+        empleada.setEdad(empleadaInfo.edad);
+        empleada.setSueldo(empleadaInfo.sueldo);
+        empleada.setFechaAlta(new Date());
+        
+        Categoria categoria = categoriaService.buscarCategoria(empleadaInfo.categoriaId);
+        empleada.setCategoria(categoria);
+        empleada.setEstado(EstadoEmpleadoEnum.ACTIVO);
+
+        service.crearEmpleada(empleada);
+        respuesta.isOk = true;
+        respuesta.id = empleada.getEmpleadaId();
+        respuesta.message = "La empleada fue creada con exito";
+        return ResponseEntity.ok(respuesta);
+
     }
 
 }

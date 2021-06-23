@@ -1,6 +1,6 @@
 package ar.com.ada.api.empleadas.empleadas.models.responce;
 
-public class GenericResponce {
+public class GenericResponse {
 
     //resuesta generica para que devuelva al front al ejecutar un metodo
 
