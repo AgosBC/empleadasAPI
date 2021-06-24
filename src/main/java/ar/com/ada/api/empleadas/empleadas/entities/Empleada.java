@@ -8,12 +8,24 @@ import javax.persistence.*;
 @Entity
 @Table(name = "empleada")
 public class Empleada {
+   
+    public Empleada() {      
+    }//hacer un constructor vacio vacio. para solucionar el problema"defoult constructor not found"
+    //esto sucede por que hibernate al creae las entidades desde la base de datos
+    //no sabe y usa constructor por defecto lo mismo pasa con el framework de Json a entity
+    // sin un contructor vacio se rompe todo
+    //Jpa repository empleadas instancia una nueva empleada con un contructor, que al no saber 
+    // que parametros usar, usa uno vacio. al crear un constructor nuevo, ese por defecto desaparece
+    //y hibernate no entiende como crear/instanciar sin ese contructor vacio. como solucion lo creamos
+    //lo mismo pasa desde Postman json
 
-   /* public Empleada(String nombre, Integer edad, BigDecimal sueldo) {
+    public Empleada(String nombre, Integer edad, BigDecimal sueldo) {
         this.nombre = nombre;
         this.edad = edad;
         this.sueldo = sueldo;
-    }*/
+        this.setEstado(EstadoEmpleadoEnum.ACTIVO);
+        this.setFechaAlta(new Date());
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -103,7 +115,8 @@ public class Empleada {
     public enum EstadoEmpleadoEnum{
 
         ACTIVO(1),
-        INACTIVO(2);
+        INACTIVO(2),
+        BAJA(3);
 
         private final int value;
 

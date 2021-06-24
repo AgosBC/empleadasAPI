@@ -25,29 +25,6 @@ public class EmpleadaController {
     @Autowired
     CategoriaService categoriaService;
 
-    /*@PostMapping("/empleados")//con constructor
-    public ResponseEntity<?> crearEmpleada(@RequestBody InfoEmpleadaNueva empleadaInfo){
-
-        GenericResponce r = new GenericResponce();
-        
-        Empleada empleada = new Empleada(empleadaInfo.nombre, empleadaInfo.edad, empleadaInfo.sueldo);
-        empleada.setFechaAlta(new Date());
-
-        Categoria categoria = categoriaService.buscarCategoria(empleadaInfo.categoriaId);
-        empleada.setCategoria(categoria);
-        empleada.setEstado(EstadoEmpleadoEnum.ACTIVO);
-        
-
-        service.crearEmpleada(empleada);
-
-        r.isOk = true;
-        r.id = empleada.getEmpleadaId();
-        r.message = "La empleada ha sido creada con exito";
-
-        return ResponseEntity.ok(r);
-    
-       
-    }*/
     /*@GetMapping("/empleados")
     public ResponseEntity<List<Empleada>> traerEmpleadas(){
         return ResponseEntity.ok(service.traerEmpleadas());
@@ -66,15 +43,16 @@ public class EmpleadaController {
     public ResponseEntity<?> crearEmpleada(@RequestBody InfoEmpleadaNueva empleadaInfo) {
         GenericResponse respuesta = new GenericResponse();
 
-        Empleada empleada = new Empleada(); 
-        empleada.setNombre(empleadaInfo.nombre);
-        empleada.setEdad(empleadaInfo.edad);
-        empleada.setSueldo(empleadaInfo.sueldo);
-        empleada.setFechaAlta(new Date());
+        Empleada empleada = new Empleada(empleadaInfo.nombre, empleadaInfo.edad, empleadaInfo.sueldo); 
+        //empleada.setNombre(empleadaInfo.nombre);
+        //empleada.setEdad(empleadaInfo.edad);
+        //empleada.setSueldo(empleadaInfo.sueldo);
+        //empleada.setFechaAlta(new Date());
+        //empleada.setEstado(EstadoEmpleadoEnum.ACTIVO); ahora todo esto esta en el constructor
         
         Categoria categoria = categoriaService.buscarCategoria(empleadaInfo.categoriaId);
         empleada.setCategoria(categoria);
-        empleada.setEstado(EstadoEmpleadoEnum.ACTIVO);
+        
 
         service.crearEmpleada(empleada);
         respuesta.isOk = true;
@@ -94,5 +72,27 @@ public class EmpleadaController {
 
     //si no son iguales quedaria asi en el parametro (@PathVariable(name = "id ")Interger empleadaId)
     //ver como se hace para que devuelva un 404 si no encontro el nombre en vez de un 200 con null
+
+      //Delete/empleados/{id} -- da de baja un empleado poniendo el campo estado en "baja" y 
+    //la fecha de baja que sea el dia actual
+    @DeleteMapping("/empleados/{id}")
+    public ResponseEntity<GenericResponse> bajaEmpleada(@PathVariable Integer id){
+        service.bajaEmpleada(id);
+
+        GenericResponse r = new GenericResponse();
+    
+        r.isOk =true;
+        r.message = "Este empleado ha sido dado de baja correctamente";
+
+        return ResponseEntity.ok(r);     
+
+
+    }
+    @GetMapping("empleados/categorias/{catId}")
+    public ResponseEntity<List<Empleada>> optenerEmpleadasPorCategoria(@PathVariable Integer catId){
+       
+        List<Empleada> empleadas = service.traerEmpleadaPorCategoria(catId);
+        return ResponseEntity.ok(empleadas);
+    }
 
 }

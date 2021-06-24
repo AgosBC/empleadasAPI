@@ -1,7 +1,9 @@
 package ar.com.ada.api.empleadas.empleadas.controllers;
 
-import java.security.Provider.Service;
+
 import java.util.List;
+
+
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -40,5 +42,7 @@ public class CategoriaController {
     public ResponseEntity<List<Categoria>> traerCategorias(){
         return ResponseEntity.ok(service.traerCategorias());
     }
+  
+    
     
 }
