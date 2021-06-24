@@ -25,7 +25,7 @@ public class EmpleadaController {
     @Autowired
     CategoriaService categoriaService;
 
-    /*@PostMapping("/empleados")
+    /*@PostMapping("/empleados")//con constructor
     public ResponseEntity<?> crearEmpleada(@RequestBody InfoEmpleadaNueva empleadaInfo){
 
         GenericResponce r = new GenericResponce();
@@ -66,7 +66,7 @@ public class EmpleadaController {
     public ResponseEntity<?> crearEmpleada(@RequestBody InfoEmpleadaNueva empleadaInfo) {
         GenericResponse respuesta = new GenericResponse();
 
-        Empleada empleada = new Empleada();
+        Empleada empleada = new Empleada(); 
         empleada.setNombre(empleadaInfo.nombre);
         empleada.setEdad(empleadaInfo.edad);
         empleada.setSueldo(empleadaInfo.sueldo);
@@ -83,5 +83,16 @@ public class EmpleadaController {
         return ResponseEntity.ok(respuesta);
 
     }
+
+    @GetMapping("/empleados/{id}")
+    public ResponseEntity<Empleada> getEmpleadaPorId(@PathVariable Integer id){ // el nombre de la variable debe ser igual al nombre del path variable de la ruta
+        
+        Empleada empleada = service.buscarEmpleada(id);
+
+        return ResponseEntity.ok(empleada);
+    }
+
+    //si no son iguales quedaria asi en el parametro (@PathVariable(name = "id ")Interger empleadaId)
+    //ver como se hace para que devuelva un 404 si no encontro el nombre en vez de un 200 con null
 
 }

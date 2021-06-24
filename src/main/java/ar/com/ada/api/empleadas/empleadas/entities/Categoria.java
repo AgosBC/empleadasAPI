@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.*;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 ;
 
 @Entity
@@ -23,6 +25,7 @@ public class Categoria {
     //creo la lista empleados que luego usare para el join de la FK con mapeo one to many
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Empleada> empleadas = new ArrayList<>();
 
     public Integer getCategoriaId() {
