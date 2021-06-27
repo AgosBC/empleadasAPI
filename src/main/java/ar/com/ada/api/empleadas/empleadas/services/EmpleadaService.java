@@ -24,7 +24,7 @@ public class EmpleadaService {
     @Autowired
     CategoriaService categoriaService;
 
-    public int agregarEmpleada(String nombre,int edad, BigDecimal sueldo, Integer categoriaId){
+    public Empleada agregarEmpleada(String nombre,int edad, BigDecimal sueldo, Integer categoriaId){
         Empleada empleada = new Empleada();
         empleada.setNombre(nombre);
         empleada.setEdad(edad);
@@ -34,7 +34,7 @@ public class EmpleadaService {
         empleada.setCategoria(categoria);
         empleada.setEstado(EstadoEmpleadoEnum.ACTIVO);
         empleadaRepo.save(empleada);
-        return empleada.getEmpleadaId();
+        return empleada;
     }
 
     public void crearEmpleada(Empleada empleada){

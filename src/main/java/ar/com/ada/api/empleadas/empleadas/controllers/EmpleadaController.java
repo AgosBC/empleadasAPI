@@ -64,10 +64,10 @@ public class EmpleadaController {
     public ResponseEntity<?> agregarEmpleada(@RequestBody InfoEmpleadaNueva empleadaInfo){
         GenericResponse respuesta = new GenericResponse();
         
-        int nuevoEmpleadoId = service.agregarEmpleada(empleadaInfo.nombre, empleadaInfo.edad, empleadaInfo.sueldo, empleadaInfo.categoriaId);
+        Empleada empleada = service.agregarEmpleada(empleadaInfo.nombre, empleadaInfo.edad, empleadaInfo.sueldo, empleadaInfo.categoriaId);
         respuesta.isOk = true;
         respuesta.message = "La empleada fue creada con exito";
-        respuesta.id = nuevoEmpleadoId;
+        respuesta.id = empleada.getEmpleadaId();
         
         return ResponseEntity.ok(respuesta);
 
