@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import ar.com.ada.api.empleadas.empleadas.entities.Categoria;
 import ar.com.ada.api.empleadas.empleadas.entities.Empleada;
 import ar.com.ada.api.empleadas.empleadas.entities.Empleada.EstadoEmpleadoEnum;
 import ar.com.ada.api.empleadas.empleadas.models.request.InfoEmpleadaNueva;
+import ar.com.ada.api.empleadas.empleadas.models.request.SueldoNuevoEmpleada;
 import ar.com.ada.api.empleadas.empleadas.models.responce.GenericResponse;
 import ar.com.ada.api.empleadas.empleadas.services.CategoriaService;
 import ar.com.ada.api.empleadas.empleadas.services.EmpleadaService;
@@ -39,25 +41,34 @@ public class EmpleadaController {
 
 
     
-    @PostMapping("/empleados")
+    /*@PostMapping("/empleados")
     public ResponseEntity<?> crearEmpleada(@RequestBody InfoEmpleadaNueva empleadaInfo) {
         GenericResponse respuesta = new GenericResponse();
 
-        Empleada empleada = new Empleada(empleadaInfo.nombre, empleadaInfo.edad, empleadaInfo.sueldo); 
-        //empleada.setNombre(empleadaInfo.nombre);
-        //empleada.setEdad(empleadaInfo.edad);
-        //empleada.setSueldo(empleadaInfo.sueldo);
-        //empleada.setFechaAlta(new Date());
-        //empleada.setEstado(EstadoEmpleadoEnum.ACTIVO); ahora todo esto esta en el constructor
-        
-        Categoria categoria = categoriaService.buscarCategoria(empleadaInfo.categoriaId);
-        empleada.setCategoria(categoria);
+                      
+       Empleada empleada = new Empleada(empleadaInfo.nombre, empleadaInfo.edad, empleadaInfo.sueldo); 
+                
+       Categoria categoria = categoriaService.buscarCategoria(empleadaInfo.categoriaId);
+       empleada.setCategoria(categoria);
         
 
         service.crearEmpleada(empleada);
         respuesta.isOk = true;
         respuesta.id = empleada.getEmpleadaId();
         respuesta.message = "La empleada fue creada con exito";
+        return ResponseEntity.ok(respuesta);
+
+    }*/
+
+    @PostMapping("/empleados")
+    public ResponseEntity<?> agregarEmpleada(@RequestBody InfoEmpleadaNueva empleadaInfo){
+        GenericResponse respuesta = new GenericResponse();
+        
+        int nuevoEmpleadoId = service.agregarEmpleada(empleadaInfo.nombre, empleadaInfo.edad, empleadaInfo.sueldo, empleadaInfo.categoriaId);
+        respuesta.isOk = true;
+        respuesta.message = "La empleada fue creada con exito";
+        respuesta.id = nuevoEmpleadoId;
+        
         return ResponseEntity.ok(respuesta);
 
     }
@@ -88,11 +99,25 @@ public class EmpleadaController {
 
 
     }
-    @GetMapping("empleados/categorias/{catId}")
+    @GetMapping("/empleados/categorias/{catId}")
     public ResponseEntity<List<Empleada>> optenerEmpleadasPorCategoria(@PathVariable Integer catId){
        
         List<Empleada> empleadas = service.traerEmpleadaPorCategoria(catId);
         return ResponseEntity.ok(empleadas);
+    }
+
+    @PutMapping("/empleados/{id}/sueldos")
+    public ResponseEntity<GenericResponse> modificarSueldo(@PathVariable Integer id, @RequestBody SueldoNuevoEmpleada sueldoNuevo){
+
+        service.modificarSueldo(id, sueldoNuevo);
+
+        GenericResponse r = new GenericResponse();
+        r.isOk= true;
+        r.message = "Sueldo actualizado";
+
+        return ResponseEntity.ok(r);
+
+
     }
 
 }

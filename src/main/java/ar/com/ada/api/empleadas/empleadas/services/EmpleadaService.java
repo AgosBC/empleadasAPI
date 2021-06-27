@@ -1,5 +1,6 @@
 package ar.com.ada.api.empleadas.empleadas.services;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import ar.com.ada.api.empleadas.empleadas.entities.Categoria;
 import ar.com.ada.api.empleadas.empleadas.entities.Empleada;
 import ar.com.ada.api.empleadas.empleadas.entities.Empleada.EstadoEmpleadoEnum;
+import ar.com.ada.api.empleadas.empleadas.models.request.InfoEmpleadaNueva;
+import ar.com.ada.api.empleadas.empleadas.models.request.SueldoNuevoEmpleada;
 import ar.com.ada.api.empleadas.empleadas.repos.EmpleadaRepository;
 
 @Service
@@ -21,9 +24,24 @@ public class EmpleadaService {
     @Autowired
     CategoriaService categoriaService;
 
+    public int agregarEmpleada(String nombre,int edad, BigDecimal sueldo, Integer categoriaId){
+        Empleada empleada = new Empleada();
+        empleada.setNombre(nombre);
+        empleada.setEdad(edad);
+        empleada.setSueldo(sueldo);
+        empleada.setFechaAlta(new Date());
+        Categoria categoria = categoriaService.buscarCategoria(categoriaId);
+        empleada.setCategoria(categoria);
+        empleada.setEstado(EstadoEmpleadoEnum.ACTIVO);
+        empleadaRepo.save(empleada);
+        return empleada.getEmpleadaId();
+    }
+
     public void crearEmpleada(Empleada empleada){
 
-        empleadaRepo.save(empleada);                
+        empleadaRepo.save(empleada); 
+        
+        
     }
     
     public List<Empleada> traerEmpleadas(){
@@ -56,6 +74,19 @@ public class EmpleadaService {
         
         return categoria.getEmpleadas();
     }
+
+    public void guardar(Empleada empleada){
+        empleadaRepo.save(empleada);
+    }
+
+    public void modificarSueldo(Integer id, SueldoNuevoEmpleada sueldoNuevoInfo) {
+
+        Empleada empleada = this.buscarEmpleada(id);
+        empleada.setSueldo(sueldoNuevoInfo.sueldoNuevo);
+        this.guardar(empleada);
+    }
+
+    
 
    
 }
