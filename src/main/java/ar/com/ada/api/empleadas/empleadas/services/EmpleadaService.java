@@ -24,7 +24,7 @@ public class EmpleadaService {
     @Autowired
     CategoriaService categoriaService;
 
-    public Empleada agregarEmpleada(String nombre,int edad, BigDecimal sueldo, Integer categoriaId){
+    public Empleada agregarEmpleada(String nombre, int edad, BigDecimal sueldo, Integer categoriaId) {
         Empleada empleada = new Empleada();
         empleada.setNombre(nombre);
         empleada.setEdad(edad);
@@ -37,30 +37,28 @@ public class EmpleadaService {
         return empleada;
     }
 
-    public void crearEmpleada(Empleada empleada){
+    public void crearEmpleada(Empleada empleada) {
 
-        empleadaRepo.save(empleada); 
-        
-        
+        empleadaRepo.save(empleada);
+
     }
-    
-    public List<Empleada> traerEmpleadas(){
+
+    public List<Empleada> traerEmpleadas() {
         return empleadaRepo.findAll();
     }
 
-    public Empleada buscarEmpleada(Integer empleadaId){
+    public Empleada buscarEmpleada(Integer empleadaId) {
         Optional<Empleada> resultado = empleadaRepo.findById(empleadaId);
-        
+
         if (resultado.isPresent())
             return resultado.get();
-        
+
         return null;
 
-              
-
-        
     }
-    // DELEETE LOGICO eliminacion logica. no se elimina de la base de datos, se da de baja
+
+    // DELEETE LOGICO eliminacion logica. no se elimina de la base de datos, se da
+    // de baja
     public void bajaEmpleada(Integer id) {
         Empleada empleada = this.buscarEmpleada(id);
         empleada.setEstado(EstadoEmpleadoEnum.BAJA);
@@ -71,11 +69,11 @@ public class EmpleadaService {
 
     public List<Empleada> traerEmpleadaPorCategoria(Integer catId) {
         Categoria categoria = categoriaService.buscarCategoria(catId);
-        
+
         return categoria.getEmpleadas();
     }
 
-    public void guardar(Empleada empleada){
+    public void guardar(Empleada empleada) {
         empleadaRepo.save(empleada);
     }
 
@@ -86,7 +84,4 @@ public class EmpleadaService {
         this.guardar(empleada);
     }
 
-    
-
-   
 }

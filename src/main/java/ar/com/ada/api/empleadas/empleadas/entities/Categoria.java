@@ -5,8 +5,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-;
+import com.fasterxml.jackson.annotation.JsonIgnore;;
 
 @Entity
 @Table(name = "categoria")
@@ -22,7 +21,8 @@ public class Categoria {
     @Column(name = "sueldo_base")
     private BigDecimal sueldoBase;
 
-    //creo la lista empleados que luego usare para el join de la FK con mapeo one to many
+    // creo la lista empleados que luego usare para el join de la FK con mapeo one
+    // to many
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
@@ -59,8 +59,8 @@ public class Categoria {
     public void setEmpleadas(List<Empleada> empleadas) {
         this.empleadas = empleadas;
     }
-    
-    public void agregarEmpleada (Empleada empleada){
+
+    public void agregarEmpleada(Empleada empleada) {
         this.empleadas.add(empleada);
     }
 }

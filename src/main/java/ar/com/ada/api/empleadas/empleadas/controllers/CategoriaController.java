@@ -1,30 +1,25 @@
 package ar.com.ada.api.empleadas.empleadas.controllers;
 
-
 import java.util.List;
-
-
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 import ar.com.ada.api.empleadas.empleadas.entities.Categoria;
 import ar.com.ada.api.empleadas.empleadas.models.responce.GenericResponse;
 import ar.com.ada.api.empleadas.empleadas.services.CategoriaService;
 
-@RestController //anotacion
+@RestController // anotacion
 public class CategoriaController {
-    
-    @Autowired //anotacion
+
+    @Autowired // anotacion
     private CategoriaService service;
 
-    @PostMapping("/categorias") //mapping url 
-    public ResponseEntity<?> crearCategoria(@RequestBody Categoria categoria){ //no es un void una api siempre devuelve algo al 
+    @PostMapping("/categorias") // mapping url
+    public ResponseEntity<?> crearCategoria(@RequestBody Categoria categoria) { 
 
         GenericResponse respuesta = new GenericResponse();
-       
 
         service.crearCategoria(categoria);
 
@@ -34,15 +29,11 @@ public class CategoriaController {
 
         return ResponseEntity.ok(respuesta);
 
-
     }
 
-    
     @GetMapping("/categorias")
-    public ResponseEntity<List<Categoria>> traerCategorias(){
+    public ResponseEntity<List<Categoria>> traerCategorias() {
         return ResponseEntity.ok(service.traerCategorias());
     }
-  
-    
-    
+
 }

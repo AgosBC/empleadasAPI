@@ -8,16 +8,21 @@ import javax.persistence.*;
 @Entity
 @Table(name = "empleada")
 public class Empleada {
-   
-    public Empleada() {      
-    }//hacer un constructor vacio vacio. para solucionar el problema"defoult constructor not found"
-    //esto sucede por que hibernate al creae las entidades desde la base de datos
-    //no sabe y usa constructor por defecto lo mismo pasa con el framework de Json a entity
-    // sin un contructor vacio se rompe todo
-    //Jpa repository empleadas instancia una nueva empleada con un contructor, que al no saber 
-    // que parametros usar, usa uno vacio. al crear un constructor nuevo, ese por defecto desaparece
-    //y hibernate no entiende como crear/instanciar sin ese contructor vacio. como solucion lo creamos
-    //lo mismo pasa desde Postman json
+
+    public Empleada() {
+    }// hacer un constructor vacio vacio. para solucionar el problema"defoult
+     // constructor not found"
+     // esto sucede por que hibernate al creae las entidades desde la base de datos
+     // no sabe y usa constructor por defecto lo mismo pasa con el framework de Json
+     // a entity
+     // sin un contructor vacio se rompe todo
+     // Jpa repository empleadas instancia una nueva empleada con un contructor, que
+     // al no saber
+     // que parametros usar, usa uno vacio. al crear un constructor nuevo, ese por
+     // defecto desaparece
+     // y hibernate no entiende como crear/instanciar sin ese contructor vacio. como
+     // solucion lo creamos
+     // lo mismo pasa desde Postman json
 
     public Empleada(String nombre, Integer edad, BigDecimal sueldo) {
         this.nombre = nombre;
@@ -31,8 +36,7 @@ public class Empleada {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "empleada_id")
     private Integer empleadaId;
-    
-   
+
     private String nombre;
 
     private Integer edad;
@@ -51,7 +55,6 @@ public class Empleada {
 
     @Column(name = "fecha_baja")
     private Date fechaBaja;
-    
 
     public Integer getEmpleadaId() {
         return empleadaId;
@@ -110,17 +113,15 @@ public class Empleada {
         this.fechaBaja = fechaBaja;
     }
 
-    //enum estado
+    // enum estado
 
-    public enum EstadoEmpleadoEnum{
+    public enum EstadoEmpleadoEnum {
 
-        ACTIVO(1),
-        INACTIVO(2),
-        BAJA(3);
+        ACTIVO(1), INACTIVO(2), BAJA(3);
 
         private final int value;
 
-        private EstadoEmpleadoEnum(int value){
+        private EstadoEmpleadoEnum(int value) {
             this.value = value;
         }
 
@@ -128,31 +129,29 @@ public class Empleada {
             return value;
         }
 
-        public static EstadoEmpleadoEnum parse(int id){
+        public static EstadoEmpleadoEnum parse(int id) {
             EstadoEmpleadoEnum status = null;
-            for(EstadoEmpleadoEnum item : EstadoEmpleadoEnum.values()){
-                if(item.getValue() == id){
+            for (EstadoEmpleadoEnum item : EstadoEmpleadoEnum.values()) {
+                if (item.getValue() == id) {
                     status = item;
                     break;
 
                 }
             }
 
-            return status;  
+            return status;
         }
 
-      
     }
-     // Cambiar getter  setter del int estado por estos del enumerado
-     
-    public EstadoEmpleadoEnum getEstado(){
+    // Cambiar getter setter del int estado por estos del enumerado
+
+    public EstadoEmpleadoEnum getEstado() {
         return EstadoEmpleadoEnum.parse(this.estado);
-        
+
     }
 
-    public void setEstado(EstadoEmpleadoEnum estado){
+    public void setEstado(EstadoEmpleadoEnum estado) {
         this.estado = estado.getValue();
     }
 
-   
 }
