@@ -33,7 +33,7 @@ public class EmpleadaController {
 
     @GetMapping("/empleados")
     public ResponseEntity<List<Empleada>> traerEmpleadas() {
-        List<Empleada> lista = service.traerEmpleadas();
+        List<Empleada> lista = service.traerEmpleada();
         return ResponseEntity.ok(lista);
     }
 

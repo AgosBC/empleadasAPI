@@ -1,10 +1,7 @@
 package ar.com.ada.api.empleadas.empleadas.services;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
+import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +11,7 @@ import ar.com.ada.api.empleadas.empleadas.entities.Empleada.EstadoEmpleadoEnum;
 import ar.com.ada.api.empleadas.empleadas.models.request.InfoEmpleadaNueva;
 import ar.com.ada.api.empleadas.empleadas.models.request.SueldoNuevoEmpleada;
 import ar.com.ada.api.empleadas.empleadas.repos.EmpleadaRepository;
+
 
 @Service
 public class EmpleadaService {
@@ -45,6 +43,20 @@ public class EmpleadaService {
 
     public List<Empleada> traerEmpleadas() {
         return empleadaRepo.findAll();
+    }
+
+    public List<Empleada> traerEmpleada() {
+        List<Empleada> empleados = empleadaRepo.findAll();
+
+        List<Empleada> listaFiltrada = new ArrayList<>();
+
+        for (Empleada empleado : empleados) {
+            if (!empleado.getEstado().equals(EstadoEmpleadoEnum.BAJA)) {
+                listaFiltrada.add(empleado);
+            }
+        }
+
+        return listaFiltrada;
     }
 
     public Empleada buscarEmpleada(Integer empleadaId) {
