@@ -35,31 +35,11 @@ public class EmpleadaController {
     @GetMapping("/empleados")
     public ResponseEntity<List<Empleada>> traerEmpleadas() {
         List<Empleada> lista = service.traerEmpleadas();
-
         return ResponseEntity.ok(lista);
     }
 
 
     
-    /*@PostMapping("/empleados")
-    public ResponseEntity<?> crearEmpleada(@RequestBody InfoEmpleadaNueva empleadaInfo) {
-        GenericResponse respuesta = new GenericResponse();
-
-                      
-       Empleada empleada = new Empleada(empleadaInfo.nombre, empleadaInfo.edad, empleadaInfo.sueldo); 
-                
-       Categoria categoria = categoriaService.buscarCategoria(empleadaInfo.categoriaId);
-       empleada.setCategoria(categoria);
-        
-
-        service.crearEmpleada(empleada);
-        respuesta.isOk = true;
-        respuesta.id = empleada.getEmpleadaId();
-        respuesta.message = "La empleada fue creada con exito";
-        return ResponseEntity.ok(respuesta);
-
-    }*/
-
     @PostMapping("/empleados")
     public ResponseEntity<?> agregarEmpleada(@RequestBody InfoEmpleadaNueva empleadaInfo){
         GenericResponse respuesta = new GenericResponse();
@@ -84,7 +64,7 @@ public class EmpleadaController {
     //si no son iguales quedaria asi en el parametro (@PathVariable(name = "id ")Interger empleadaId)
     //ver como se hace para que devuelva un 404 si no encontro el nombre en vez de un 200 con null
 
-      //Delete/empleados/{id} -- da de baja un empleado poniendo el campo estado en "baja" y 
+    //Delete/empleados/{id} -- da de baja un empleado poniendo el campo estado en "baja" y 
     //la fecha de baja que sea el dia actual
     @DeleteMapping("/empleados/{id}")
     public ResponseEntity<GenericResponse> bajaEmpleada(@PathVariable Integer id){
