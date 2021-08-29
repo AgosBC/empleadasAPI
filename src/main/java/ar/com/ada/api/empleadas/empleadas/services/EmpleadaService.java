@@ -96,4 +96,8 @@ public class EmpleadaService {
         this.guardar(empleada);
     }
 
+    public List<Empleada> buscarEmpleadoPorNombre(String nombre) {
+        return empleadaRepo.findByNombre(nombre);
+    }
+
 }

@@ -37,6 +37,21 @@ public class EmpleadaController {
         return ResponseEntity.ok(lista);
     }
 
+    @GetMapping("/api/empleados")
+    @ResponseBody
+    public ResponseEntity<List<Empleada>> getPorNombre(@RequestParam(required = false) String nombre){
+
+        List<Empleada> empleadas;
+
+        if (nombre== null){
+            empleadas = service.traerEmpleada();
+        }else{
+            empleadas = service.buscarEmpleadoPorNombre(nombre);
+        }
+        
+        return ResponseEntity.ok(empleadas);
+    }
+
     @PostMapping("/empleados")
     public ResponseEntity<?> agregarEmpleada(@RequestBody InfoEmpleadaNueva empleadaInfo) {
         GenericResponse respuesta = new GenericResponse();
