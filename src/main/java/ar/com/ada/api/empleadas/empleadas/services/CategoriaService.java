@@ -28,7 +28,7 @@ public class CategoriaService {
     // boolean un return true
 
     public List<Categoria> traerCategorias() {
-        return categoriaRepo.findAll();
+        return categoriaRepo.findAllOrderByNombre();
     }
 
     public Categoria buscarCategoria(Integer categoriaId) {
