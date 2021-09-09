@@ -16,6 +16,9 @@ import ar.com.ada.api.empleadas.empleadas.models.request.SueldoNuevoEmpleada;
 import ar.com.ada.api.empleadas.empleadas.models.responce.GenericResponse;
 import ar.com.ada.api.empleadas.empleadas.services.CategoriaService;
 import ar.com.ada.api.empleadas.empleadas.services.EmpleadaService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 public class EmpleadaController {
@@ -117,5 +120,9 @@ public class EmpleadaController {
         return ResponseEntity.ok(r);
 
     }
+   
+    
+    
+    
 
 }
