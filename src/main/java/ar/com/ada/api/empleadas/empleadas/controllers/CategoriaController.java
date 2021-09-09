@@ -7,8 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import ar.com.ada.api.empleadas.empleadas.entities.Categoria;
+import ar.com.ada.api.empleadas.empleadas.entities.Empleada;
 import ar.com.ada.api.empleadas.empleadas.models.responce.GenericResponse;
 import ar.com.ada.api.empleadas.empleadas.services.CategoriaService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController // anotacion
 public class CategoriaController {
@@ -35,5 +39,11 @@ public class CategoriaController {
     public ResponseEntity<List<Categoria>> traerCategorias() {
         return ResponseEntity.ok(service.traerCategorias());
     }
+
+    @GetMapping(value="/categoria/sueldos-nuevos")
+    public ResponseEntity<List<Empleada>> calcularProximosSueldos() {
+        return ResponseEntity.ok(service.calcularProximosSueldos());
+    }
+    
 
 }

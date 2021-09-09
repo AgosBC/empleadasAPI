@@ -5,7 +5,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import ar.com.ada.api.empleadas.empleadas.entities.calculos.ISueldoCalculator;
 
 @Entity
 @Table(name = "categoria")
@@ -28,12 +29,25 @@ public class Categoria {
     @JsonIgnore
     private List<Empleada> empleadas = new ArrayList<>();
 
+    @JsonIgnore //no mostrar en el front
+    @Transient // para que no impacte en hibernate --> luego en la BD
+    private ISueldoCalculator sueldoCalculator;
+    
+
     public Integer getCategoriaId() {
         return categoriaId;
     }
 
     public void setCategoriaId(Integer categoriaId) {
         this.categoriaId = categoriaId;
+    }
+        
+    public ISueldoCalculator getSueldoCalculator() {
+        return sueldoCalculator;
+    }
+
+    public void setSueldoCalculator(ISueldoCalculator sueldoCalculator) {
+        this.sueldoCalculator = sueldoCalculator;
     }
 
     public String getNombre() {
@@ -62,5 +76,9 @@ public class Categoria {
 
     public void agregarEmpleada(Empleada empleada) {
         this.empleadas.add(empleada);
+    }
+
+    public BigDecimal calcularProximoSueldo(Empleada empleada) {
+        return sueldoCalculator.calcularSueldo(empleada);
     }
 }

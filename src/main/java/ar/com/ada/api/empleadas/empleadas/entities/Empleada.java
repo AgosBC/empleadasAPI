@@ -153,5 +153,15 @@ public class Empleada {
     public void setEstado(EstadoEmpleadoEnum estado) {
         this.estado = estado.getValue();
     }
+    
+    public BigDecimal obtenerVentasAnuales() {
+        Random randomGenerator = new Random();
 
+        // Genero un numero rando hasta 10000
+        double venta = randomGenerator.nextDouble() * 10000 + 1;
+        // redondeo en 2 decimales el random truncando
+        venta = ((long) (venta * 100)) / 100d;
+
+        return new BigDecimal(venta);
+    }
 }

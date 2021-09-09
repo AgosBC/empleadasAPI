@@ -1,7 +1,6 @@
 package ar.com.ada.api.empleadas.empleadas.services;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,13 +19,6 @@ public class CategoriaService {
         categoriaRepo.save(categoria);
     }
 
-    // para acortar codigo sera que se usa
-    /*
-     * public void grabar(Categoria categoria){ categoriaRepo.save(categoria) }
-     */
-    // entonces en el metodo de arriba en la linea 18 iria grabar(categoria) y si es
-    // boolean un return true
-
     public List<Categoria> traerCategorias() {
         return categoriaRepo.findAllOrderByNombre();
     }
@@ -40,5 +32,39 @@ public class CategoriaService {
 
         return categoria;
     }
+
+    
+    public List<Empleada> calcularProximosSueldosSinStream() {
+        List<Empleada> listaEmpleadas = new ArrayList<>();
+        for (Categoria categoria : this.traerCategorias()) {
+            for (Empleada empleada : categoria.getEmpleadas()) {
+                empleada.setSueldo(categoria.calcularProximoSueldo(empleada));
+                listaEmpleadas.add(empleada);
+                
+            }
+
+            
+        }
+        return listaEmpleadas;
+    }
+
+    // stream --> flujo de objetos --- paradigma funcional
+    public List<Empleada> calcularProximosSueldos(){
+
+        List<Empleada> listaEmpleadas = new ArrayList<>();
+
+        this.traerCategorias().stream().forEach(categoria -> {
+            categoria.getEmpleadas().stream().forEach(empleada -> {
+                empleada.setSueldo(categoria.calcularProximoSueldo(empleada));
+                listaEmpleadas.add(empleada);
+            });
+        });
+       
+        return listaEmpleadas;
+
+
+    } 
+
+
 
 }
