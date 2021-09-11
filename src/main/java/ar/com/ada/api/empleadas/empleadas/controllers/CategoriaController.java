@@ -35,6 +35,17 @@ public class CategoriaController {
 
     }
 
+    @DeleteMapping("/categoria/{id}")
+    public ResponseEntity<GenericResponse> borrarCat(@PathVariable Integer id){
+        GenericResponse rta = new GenericResponse();
+        service.borrarCat(id);
+        rta.isOk = true;
+        rta.message = "la categoria ha sido eliminada";
+
+        return ResponseEntity.ok(rta);
+        
+    }
+
     @GetMapping("/categorias")
     public ResponseEntity<List<Categoria>> traerCategorias() {
         return ResponseEntity.ok(service.traerCategorias());
