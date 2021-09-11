@@ -39,11 +39,12 @@ public class CategoriaService {
     public List<Empleada> calcularProximosSueldosSinStream() {
         List<Empleada> listaEmpleadas = new ArrayList<>();
         for (Categoria categoria : this.traerCategorias()) {
+           if(categoria.getNombre().equals("Auxiliar") || categoria.getNombre().equals("ventas") || categoria.getNombre().equals("administrativa")){
             for (Empleada empleada : categoria.getEmpleadas()) {
                 empleada.setSueldo(categoria.calcularProximoSueldo(empleada));
                 listaEmpleadas.add(empleada);
                 
-            }
+            }}
 
             
         }

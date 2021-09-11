@@ -53,7 +53,7 @@ public class CategoriaController {
 
     @GetMapping(value="/categoria/sueldos-nuevos")
     public ResponseEntity<List<Empleada>> calcularProximosSueldos() {
-        return ResponseEntity.ok(service.calcularProximosSueldos());
+        return ResponseEntity.ok(service.calcularProximosSueldosSinStream());
     }
     
     
