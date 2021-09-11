@@ -11,7 +11,9 @@ import ar.com.ada.api.empleadas.empleadas.entities.Categoria;
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
     
-    @Query("select cat from Categoria cat order by nombre")
-    List<Categoria> findAllOrderByNombre();
+    //@Query("select cat from Categoria cat order by nombre")
+    //List<Categoria> findAllOrderByNombre();
+
+    Categoria findByCategoriaId(Integer id);
 
 }
