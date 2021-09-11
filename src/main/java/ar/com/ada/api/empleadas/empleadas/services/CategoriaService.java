@@ -1,6 +1,8 @@
 package ar.com.ada.api.empleadas.empleadas.services;
 
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,6 +66,32 @@ public class CategoriaService {
 
 
     } 
+
+    public List<Empleada> obtenerSueldosActuales(){
+        List<Empleada> listaEmpleada = new ArrayList<>();
+
+        traerCategorias().stream().forEach(cat -> listaEmpleada.addAll(cat.getEmpleadas()));
+        return listaEmpleada;
+    }
+
+    public List<Categoria> obtenerCategoriasSinEmpleadas() {
+
+        return traerCategorias().stream().filter(categoria -> categoria.getEmpleadas().size() == 0) //lambda -> (traer kas empleadas .size ==0 AKA ninguna)
+        .collect(Collectors.toList()); // de stram volver a pasarlo a lista
+    }
+
+    public Categoria obtenerCategoriaConMinimoSueldo() {
+        return traerCategorias().stream().min(Comparator.comparing(Categoria :: getSueldoBase)).get();
+    }
+
+    public List<String> obtenerNombresCategorias(){
+        
+        return this.traerCategorias().stream().map(cat -> cat.getNombre()).collect(Collectors.toList());
+
+        
+    }
+
+
 
 
 

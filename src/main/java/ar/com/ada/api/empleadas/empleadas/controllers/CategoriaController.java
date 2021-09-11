@@ -45,5 +45,26 @@ public class CategoriaController {
         return ResponseEntity.ok(service.calcularProximosSueldos());
     }
     
+    
+    @GetMapping("/categorias/sueldos-actuales")// devuelve exactamente lo mismo que el get de empleados. lista de empleados completa. probar discriminar, 
+                                                // modificar traerEmpleados o este metodo, que traigan info diferente c/u con un model (este metodo sin endpoint en postman)
+    public ResponseEntity<List<Empleada>> obtenerSueldosActuales() {
+        return ResponseEntity.ok(service.obtenerSueldosActuales());
+    }
+
+    @GetMapping("/categorias/sin-empleados")
+    public ResponseEntity<List<Categoria>> obtenerCategoriasSinEmpleadas() {
+        return ResponseEntity.ok(service.obtenerCategoriasSinEmpleadas());
+    }
+
+    @GetMapping("/categorias/minimo-sueldo")
+    public ResponseEntity<Categoria> obtenerCategoriaConMinimoSueldo() {
+        return ResponseEntity.ok(service.obtenerCategoriaConMinimoSueldo());
+    }
+
+    @GetMapping("/categorias/nombres")
+    public ResponseEntity<List<String>> obtenerNombresCategorias() {
+        return ResponseEntity.ok(service.obtenerNombresCategorias());
+    }
 
 }
