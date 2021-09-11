@@ -22,7 +22,7 @@ public class CategoriaService {
     }
 
     public List<Categoria> traerCategorias() {
-        return categoriaRepo.findAllOrderByNombre();
+        return categoriaRepo.findAll();
     }
 
     public Categoria buscarCategoria(Integer categoriaId) {
@@ -89,6 +89,12 @@ public class CategoriaService {
         return this.traerCategorias().stream().map(cat -> cat.getNombre()).collect(Collectors.toList());
 
         
+    }
+
+    public void borrarCat(Integer id) {
+
+        Categoria cat = categoriaRepo.findByCategoriaId(id);
+        categoriaRepo.delete(cat);
     }
 
 
