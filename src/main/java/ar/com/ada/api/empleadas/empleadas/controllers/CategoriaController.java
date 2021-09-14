@@ -26,7 +26,7 @@ public class CategoriaController {
     public ResponseEntity<?> crearCategoria(@RequestBody Categoria categoria) { 
 
         GenericResponse respuesta = new GenericResponse();
-        ValidacionCategoriaEnum catValida = service.validar(categoria);
+        ValidacionCategoriaEnum catValida = service.nombreCategoriaExste(categoria);
         
         if (catValida.equals(ValidacionCategoriaEnum.OK)){
             service.crearCategoria(categoria);

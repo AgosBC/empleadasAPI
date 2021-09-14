@@ -105,26 +105,24 @@ public class CategoriaService {
         categoriaRepo.delete(cat);
     }
 
-    public ValidacionCategoriaEnum validar(Categoria categoria){
-
-        if(!this.categoriaExste(categoria))
-            return ValidacionCategoriaEnum.ERROR_CATEGORIA_EXISTENTE;
-        
-        return ValidacionCategoriaEnum.OK;
-
-    }
-
-    public boolean categoriaExste(Categoria categoria){
-        
+  
+    public ValidacionCategoriaEnum nombreCategoriaExste(Categoria categoria){
+      
         for (Categoria categorias : categoriaRepo.findAll()) {
 
             if (categorias.getNombre().equalsIgnoreCase(categoria.getNombre()))
-            return false;
+            return ValidacionCategoriaEnum.ERROR_CATEGORIA_EXISTENTE;
             
         }
-        return true; 
+        return ValidacionCategoriaEnum.OK; 
     }
        
+    public ValidacionCategoriaEnum existeId(Categoria categoria){
+        if (categoriaRepo.existsById(categoria.getCategoriaId()) == true){
+            return ValidacionCategoriaEnum.OK;
+        } else 
+            return ValidacionCategoriaEnum.ERROR_CATEGORIA_ID;
+    }
 
     public enum ValidacionCategoriaEnum {
         OK, ERROR_CATEGORIA_EXISTENTE, ERROR_CATEGORIA_ID, ERROR_GENERAL,
