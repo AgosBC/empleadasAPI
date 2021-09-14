@@ -56,6 +56,16 @@ public class Empleada {
     @Column(name = "fecha_baja")
     private Date fechaBaja;
 
+    
+
+    public Empleada(String nombre, Integer edad, BigDecimal sueldo, Date fechaAlta) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.sueldo = sueldo;
+        this.fechaAlta = fechaAlta;
+    }
+
+    
     public Integer getEmpleadaId() {
         return empleadaId;
     }

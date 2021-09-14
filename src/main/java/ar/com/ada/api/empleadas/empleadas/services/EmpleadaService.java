@@ -23,17 +23,17 @@ public class EmpleadaService {
     CategoriaService categoriaService;
 
     public Empleada agregarEmpleada(String nombre, int edad, BigDecimal sueldo, Integer categoriaId) {
-        Empleada empleada = new Empleada();
-        empleada.setNombre(nombre);
-        empleada.setEdad(edad);
-        empleada.setSueldo(sueldo);
-        empleada.setFechaAlta(new Date());
+       
+        Empleada empleada = new Empleada(nombre.toLowerCase(), edad, sueldo, new Date());
+    
         Categoria categoria = categoriaService.buscarCategoria(categoriaId);
         empleada.setCategoria(categoria);
         empleada.setEstado(EstadoEmpleadoEnum.ACTIVO);
         empleadaRepo.save(empleada);
         return empleada;
     }
+
+     
 
     public void crearEmpleada(Empleada empleada) {
 
@@ -99,5 +99,8 @@ public class EmpleadaService {
     public List<Empleada> buscarEmpleadoPorNombre(String nombre) {
         return empleadaRepo.findByNombre(nombre);
     }
+
+
+    
 
 }

@@ -46,10 +46,10 @@ public class EmpleadaController {
 
         List<Empleada> empleadas;
 
-        if (nombre== null){
+        if (nombre.toLowerCase()== null){
             empleadas = service.traerEmpleada();
         }else{
-            empleadas = service.buscarEmpleadoPorNombre(nombre);
+            empleadas = service.buscarEmpleadoPorNombre(nombre.toLowerCase());
         }
         
         return ResponseEntity.ok(empleadas);
@@ -59,7 +59,7 @@ public class EmpleadaController {
     public ResponseEntity<?> agregarEmpleada(@RequestBody InfoEmpleadaNueva empleadaInfo) {
         GenericResponse respuesta = new GenericResponse();
 
-        Empleada empleada = service.agregarEmpleada(empleadaInfo.nombre, empleadaInfo.edad, empleadaInfo.sueldo,
+        Empleada empleada = service.agregarEmpleada(empleadaInfo.nombre.toLowerCase(), empleadaInfo.edad, empleadaInfo.sueldo,
                 empleadaInfo.categoriaId);
         respuesta.isOk = true;
         respuesta.message = "La empleada fue creada con exito";

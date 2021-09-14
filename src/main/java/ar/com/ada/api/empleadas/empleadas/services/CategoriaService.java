@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.empleadas.empleadas.entities.*;
+import ar.com.ada.api.empleadas.empleadas.entities.calculos.ISueldoCalculator;
 import ar.com.ada.api.empleadas.empleadas.repos.*;
 
 @Service
@@ -17,7 +18,7 @@ public class CategoriaService {
     CategoriaRepository categoriaRepo;
 
     public void crearCategoria(Categoria categoria) { // void o boolenan
-
+        
         categoriaRepo.save(categoria);
     }
 
@@ -26,28 +27,34 @@ public class CategoriaService {
     }
 
     public Categoria buscarCategoria(Integer categoriaId) {
-        Optional<Categoria> resultado = categoriaRepo.findById(categoriaId);
-        Categoria categoria = null;
-
-        if (resultado.isPresent())
-            categoria = resultado.get();
-
-        return categoria;
+       
+        return categoriaRepo.findByCategoriaId(categoriaId);
+       
+        
     }
 
     
     public List<Empleada> calcularProximosSueldosSinStream() {
+
+        //ISueldoCalculator calculator = null;
+        
         List<Empleada> listaEmpleadas = new ArrayList<>();
         for (Categoria categoria : this.traerCategorias()) {
            if(categoria.getNombre().equals("Auxiliar") || categoria.getNombre().equals("ventas") || categoria.getNombre().equals("administrativa")){
             for (Empleada empleada : categoria.getEmpleadas()) {
                 empleada.setSueldo(categoria.calcularProximoSueldo(empleada));
                 listaEmpleadas.add(empleada);
+                ;
                 
             }}
 
             
+
+            
         }
+        //calculator.init();      
+        
+        
         return listaEmpleadas;
     }
 
@@ -96,6 +103,31 @@ public class CategoriaService {
 
         Categoria cat = categoriaRepo.findByCategoriaId(id);
         categoriaRepo.delete(cat);
+    }
+
+    public ValidacionCategoriaEnum validar(Categoria categoria){
+
+        if(!this.categoriaExste(categoria))
+            return ValidacionCategoriaEnum.ERROR_CATEGORIA_EXISTENTE;
+        
+        return ValidacionCategoriaEnum.OK;
+
+    }
+
+    public boolean categoriaExste(Categoria categoria){
+        
+        for (Categoria categorias : categoriaRepo.findAll()) {
+
+            if (categorias.getNombre().equalsIgnoreCase(categoria.getNombre()))
+            return false;
+            
+        }
+        return true; 
+    }
+       
+
+    public enum ValidacionCategoriaEnum {
+        OK, ERROR_CATEGORIA_EXISTENTE, ERROR_CATEGORIA_ID, ERROR_GENERAL,
     }
 
 

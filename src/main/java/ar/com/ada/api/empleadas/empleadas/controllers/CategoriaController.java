@@ -10,6 +10,8 @@ import ar.com.ada.api.empleadas.empleadas.entities.Categoria;
 import ar.com.ada.api.empleadas.empleadas.entities.Empleada;
 import ar.com.ada.api.empleadas.empleadas.models.responce.GenericResponse;
 import ar.com.ada.api.empleadas.empleadas.services.CategoriaService;
+import ar.com.ada.api.empleadas.empleadas.services.CategoriaService.ValidacionCategoriaEnum;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,14 +26,23 @@ public class CategoriaController {
     public ResponseEntity<?> crearCategoria(@RequestBody Categoria categoria) { 
 
         GenericResponse respuesta = new GenericResponse();
+        ValidacionCategoriaEnum catValida = service.validar(categoria);
+        
+        if (catValida.equals(ValidacionCategoriaEnum.OK)){
+            service.crearCategoria(categoria);
 
-        service.crearCategoria(categoria);
+            respuesta.isOk = true;
+            respuesta.id = categoria.getCategoriaId();
+            respuesta.message = "La categoria fue creada con exito";
 
-        respuesta.isOk = true;
-        respuesta.id = categoria.getCategoriaId();
-        respuesta.message = "La categoria fue creada con exito";
+            return ResponseEntity.ok(respuesta);            
+        
+        }else {
 
-        return ResponseEntity.ok(respuesta);
+            respuesta.isOk = false;
+            respuesta.message = catValida.toString();
+            return ResponseEntity.badRequest().body(respuesta);
+        }
 
     }
 
