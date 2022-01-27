@@ -12,4 +12,6 @@ public interface EmpleadaRepository extends JpaRepository<Empleada, Integer> {
 
     List<Empleada> findByNombre(String nombre);
 
+    Empleada findByEmpleadaId(Integer id);
+
 }

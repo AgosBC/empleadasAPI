@@ -11,6 +11,7 @@ import ar.com.ada.api.empleadas.empleadas.entities.Empleada.EstadoEmpleadoEnum;
 import ar.com.ada.api.empleadas.empleadas.models.request.InfoEmpleadaNueva;
 import ar.com.ada.api.empleadas.empleadas.models.request.SueldoNuevoEmpleada;
 import ar.com.ada.api.empleadas.empleadas.repos.EmpleadaRepository;
+import ar.com.ada.exceptions.ResourceNotFoundException;
 
 
 @Service
@@ -60,12 +61,15 @@ public class EmpleadaService {
     }
 
     public Empleada buscarEmpleada(Integer empleadaId) {
-        Optional<Empleada> resultado = empleadaRepo.findById(empleadaId);
+        
+        return empleadaRepo.findByEmpleadaId(empleadaId);
+        
+        /*Optional<Empleada> resultado = empleadaRepo.findById(empleadaId);
 
         if (resultado.isPresent())
             return resultado.get();
 
-        return null;
+        return null;*/
 
     }
 

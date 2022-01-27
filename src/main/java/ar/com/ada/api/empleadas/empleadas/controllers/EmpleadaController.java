@@ -16,6 +16,8 @@ import ar.com.ada.api.empleadas.empleadas.models.request.SueldoNuevoEmpleada;
 import ar.com.ada.api.empleadas.empleadas.models.responce.GenericResponse;
 import ar.com.ada.api.empleadas.empleadas.services.CategoriaService;
 import ar.com.ada.api.empleadas.empleadas.services.EmpleadaService;
+import ar.com.ada.exceptions.ResourceNotFoundException;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -69,15 +71,20 @@ public class EmpleadaController {
 
     }
 
+
     @GetMapping("/empleados/{id}")
-    public ResponseEntity<Empleada> getEmpleadaPorId(@PathVariable Integer id) { // el nombre de la variable debe ser
+    public ResponseEntity<Empleada> getEmpleadaPorId(@PathVariable Integer id ) throws ResourceNotFoundException { // el nombre de la variable debe ser
                                                                                  // igual al nombre del path variable de
                                                                                  // la ruta
 
         Empleada empleada = service.buscarEmpleada(id);
+        if (!empleada.equals(null)){
+        return ResponseEntity.ok(empleada);}
 
-        return ResponseEntity.ok(empleada);
+        else{throw new ResourceNotFoundException("no existe empleada con ese id");}
     }
+
+
 
     // si no son iguales quedaria asi en el parametro (@PathVariable(name = "id
     // ")Interger empleadaId)
