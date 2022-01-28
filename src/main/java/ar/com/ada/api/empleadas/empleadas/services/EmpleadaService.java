@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import ar.com.ada.api.empleadas.empleadas.entities.Categoria;
 import ar.com.ada.api.empleadas.empleadas.entities.Empleada;
 import ar.com.ada.api.empleadas.empleadas.entities.Empleada.EstadoEmpleadoEnum;
+import ar.com.ada.api.empleadas.empleadas.exceptions.ResourceNotFoundException;
 import ar.com.ada.api.empleadas.empleadas.models.request.InfoEmpleadaNueva;
 import ar.com.ada.api.empleadas.empleadas.models.request.SueldoNuevoEmpleada;
 import ar.com.ada.api.empleadas.empleadas.repos.EmpleadaRepository;
-import ar.com.ada.exceptions.ResourceNotFoundException;
 
 
 @Service

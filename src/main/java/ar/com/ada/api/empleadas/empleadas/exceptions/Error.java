@@ -1,4 +1,4 @@
-package ar.com.ada.exceptions;
+package ar.com.ada.api.empleadas.empleadas.exceptions;
 
 import java.sql.Timestamp;
 

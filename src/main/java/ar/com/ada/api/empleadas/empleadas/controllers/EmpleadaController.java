@@ -11,12 +11,12 @@ import java.util.*;
 import ar.com.ada.api.empleadas.empleadas.entities.Categoria;
 import ar.com.ada.api.empleadas.empleadas.entities.Empleada;
 import ar.com.ada.api.empleadas.empleadas.entities.Empleada.EstadoEmpleadoEnum;
+import ar.com.ada.api.empleadas.empleadas.exceptions.ResourceNotFoundException;
 import ar.com.ada.api.empleadas.empleadas.models.request.InfoEmpleadaNueva;
 import ar.com.ada.api.empleadas.empleadas.models.request.SueldoNuevoEmpleada;
 import ar.com.ada.api.empleadas.empleadas.models.responce.GenericResponse;
 import ar.com.ada.api.empleadas.empleadas.services.CategoriaService;
 import ar.com.ada.api.empleadas.empleadas.services.EmpleadaService;
-import ar.com.ada.exceptions.ResourceNotFoundException;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,7 +78,7 @@ public class EmpleadaController {
                                                                                  // la ruta
 
         Empleada empleada = service.buscarEmpleada(id);
-        if (!empleada.equals(null)){
+        if (empleada != null){
         return ResponseEntity.ok(empleada);}
 
         else{throw new ResourceNotFoundException("no existe empleada con ese id");}
